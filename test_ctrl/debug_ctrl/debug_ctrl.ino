@@ -2,10 +2,11 @@
 #include "RadioReceiver.h"
 #include "CarPlanner.h"
 
-CarControlUnit CCU;
-RadioReceiver radioUnit;
-int *data;
-CarPlanner carPlanner;
+
+CarControlUnit CCU;						// object to control the car
+RadioReceiver radioUnit;					// object to decode the data from the remote 
+int *data;							// pointer for the data received from the remote
+CarPlanner carPlanner;						// object for car planning 
 
 void setup() {
   
@@ -17,7 +18,7 @@ void setup() {
   CCU.setServoAngle(90);
 
   radioUnit.setupReceiver();
-  CCU.turnOnCarLights(255,0,0);
+  CCU.turnOnCarLights(255,0,0);					// turn on the lights
   
 /*  radioUnit.setupReceiver();
   if (!radioUnit.isListening()){
@@ -83,6 +84,6 @@ void loop() {
   }
   else
   {
-    CCU.resetCarAction();
-    }
+    CCU.resetCarAction();								// stay still if the communication is not available
+  }
 }

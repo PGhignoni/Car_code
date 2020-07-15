@@ -4,15 +4,22 @@
 #include "RadioReceiver.h"
 
 
-bool RadioReceiver::isListening(){
+bool RadioReceiver::isListening()
+{
     return m_flagListening;
 }
 
-bool RadioReceiver::isReceiving(){
+
+
+bool RadioReceiver::isReceiving()
+{
     return m_flagReceivingData;
 }
 
-void RadioReceiver::setupReceiver(){
+
+
+void RadioReceiver::setupReceiver()
+{
     Serial.begin(9600);
     while(!m_flagListening)                         // listen until a communication is estabilished
     {
@@ -34,7 +41,10 @@ void RadioReceiver::setupReceiver(){
     }
 }
 
-void RadioReceiver::receiveData(){
+
+
+void RadioReceiver::receiveData()
+{
     delayMicroseconds(1000);
     if (m_radio.available())
     {
@@ -51,13 +61,17 @@ void RadioReceiver::receiveData(){
 }
 
 
-int* RadioReceiver::getData(){
+
+int* RadioReceiver::getData()
+{
     auto tmpvec=m_nrfDataRead; // do not edit the content received
     return &(tmpvec[0]);
 }
 
 
-void RadioReceiver::printData(){
+
+void RadioReceiver::printData()
+{
     if (m_flagReceivingData)
     {
        Serial.print("P1/P2/X/Y/Z/S1/S2/S3 : ");

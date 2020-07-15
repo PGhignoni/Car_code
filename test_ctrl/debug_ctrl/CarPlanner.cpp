@@ -7,20 +7,28 @@ int CarPlanner::getMode()
     return (int)m_carControlMode;
 }
 
+
+
 double CarPlanner::getLinearVelocity()
 {
     return m_linearVelocitySp;
 }
+
+
 
 double CarPlanner::getAngularVelocity()
 {
     return m_angularVelocitySp;
 }
 
+
+
 double CarPlanner::getCurvature()
 {
     return m_curvatureSp;
 }
+
+
 
 void CarPlanner::setCarMode(int* data)
 {
@@ -53,6 +61,8 @@ void CarPlanner::setCarMode(int* data)
 }
 
 
+
+
 void CarPlanner::setSetpoints(int* data)
 {
         // perform different actions depending on the control mode
@@ -69,11 +79,11 @@ void CarPlanner::setSetpoints(int* data)
 
             case ControlMode::MODE_MANUAL:
             {
-                int x= *(data+2);  // command for the linear speed
-                int y= *(data+3);  // command for the angular speed
-                int P1= *data; // the potentiometer sets the speed value
+                int x= *(data+2);  		// command for the linear speed
+                int y= *(data+3);  		// command for the angular speed
+                int P1= *data; 			// the potentiometer sets the speed value
 
-                // efferctive commands reducing biases
+                // effective commands reducing biases
                 int netX= x-NEUTRAL_STICK_POSITION;
                 int netY= y-NEUTRAL_STICK_POSITION;
 
@@ -91,7 +101,7 @@ void CarPlanner::setSetpoints(int* data)
                 m_angularVelocitySp=(double)netY*2/MAX_STICK_VALUE*P1/MAX_STICK_VALUE*MAX_ANGULAR_SPEED;
                 if (m_angularVelocitySp<0.01)
                 {
-                    m_curvatureSp=10000.0;
+                    m_curvatureSp=10000.0;	// avoid numerical issues for too small angula rates 
                 }
                 else
                 {
@@ -108,7 +118,7 @@ void CarPlanner::setSetpoints(int* data)
             int P1= *data;              // the potentiometer sets the speed value
             int P2= *(data+1);          // the potentiometer sets the radious of curvature
 
-            // efferctive commands reducing biases
+            // effective commands reducing biases
             int netX= x-NEUTRAL_STICK_POSITION;
             if(abs(netX)<STICK_TOLERANCE)
                 {
