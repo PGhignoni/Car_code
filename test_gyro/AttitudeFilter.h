@@ -16,7 +16,7 @@ class AttitudeFilter{
         float m_dt;
 
         // Attitude estimate
-	Attitude m_attitude;
+	      Attitude m_attitude;
 	
         // angular speed estimate
         float m_omega[3];
@@ -73,8 +73,6 @@ class MEKF: public AttitudeFilter{
 		m_A_q_k=Eigen::Matrix3f::Identity();
             }
     
-	    // prints the states of the filter
-	    //void displayFilterStates();
 		    
 	    // KF prediction
 	    void filterPredict(float omega_x, float omega_y, float omega_z);
@@ -84,6 +82,9 @@ class MEKF: public AttitudeFilter{
 
 	    // Computation of the optimal observer gain
 	    void filterGainComputation();
+
+     // obtain the Euler angles
+      void getEulerAngles(float euler[3]);
 
 
 };

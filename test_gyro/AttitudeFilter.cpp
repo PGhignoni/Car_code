@@ -4,7 +4,7 @@
 #include "Attitude.h"
 #include <iostream>
 
-const Eigen::Vector3f gravityAcceleration{0.0,0.0,9.81};
+const Eigen::Vector3f gravityAcceleration{0.0,0.0,1.};
 
 Eigen::Matrix3f crossMatrix(Eigen::Vector3f in){
 
@@ -108,4 +108,11 @@ void MEKF::filterGainComputation(){
 //  Eigen::internal::inverse_impl<Eigen::Matrix<float, 3, 3> > GG;
 	m_K_k=m_P_km*m_H_k.transpose()*tmp_inverse;							// Kalman gain
 
+};
+
+
+void MEKF::getEulerAngles(float euler[3]){
+  
+  m_attitude.getEuler(euler);
+  
 };
