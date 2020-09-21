@@ -1,8 +1,7 @@
 #include "Attitude.h"
-#include <stlport.h>
 #include <math.h>
 #include <iostream>
-#include <Eigen30.h>
+#include <eigen3/Eigen/Dense>
 
 // constructors implementation
 
@@ -336,7 +335,7 @@ void Attitude::updateAttitude(const float rotationVector[3], const float rotatio
 
 };
 
-/*
+
 
 void Attitude::displayAttitude(){
 
@@ -366,6 +365,7 @@ void Attitude::displayAttitude(){
 	std::cout<<"\n Printing rotation angle"<<std::endl;
 			std::cout<<m_rotationAngle<<'\n';		
 	
+	
+
 }
 
-*/

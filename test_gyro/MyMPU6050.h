@@ -10,6 +10,10 @@ class MyMPU6050: public MPU6050{
         float accOffsetX{0.0};
         float accOffsetY{0.0};
         float accOffsetZ{0.0};
+  // non-raw accelerometer standard deviation
+        float sigmaX{0.0};
+        float sigmaY{0.0};
+        float sigmaZ{0.0};
 
     public:
 

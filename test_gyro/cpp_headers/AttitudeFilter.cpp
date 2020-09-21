@@ -1,7 +1,6 @@
-#include <stlport.h>
-#include <Eigen30.h>
 #include "AttitudeFilter.h"
 #include "Attitude.h"
+#include <eigen3/Eigen/Dense>
 #include <iostream>
 
 const Eigen::Vector3f gravityAcceleration{0.0,0.0,9.81};
@@ -15,7 +14,7 @@ Eigen::Matrix3f crossMatrix(Eigen::Vector3f in){
 };
 
 
-/*
+
 void MEKF::displayFilterStates(){
 
 	float euler[3];
@@ -32,7 +31,7 @@ void MEKF::displayFilterStates(){
 	std::cout<<std::endl;
 
 };
-*/
+
 
 void MEKF::filterPredict(float omega_x, float omega_y, float omega_z){
 
@@ -100,12 +99,8 @@ void MEKF::filterGainComputation(){
 	m_H_k.block<3,3>(0,3)= Eigen::Matrix3f::Zero();	
 	Eigen::Matrix3f tmp;
 	tmp<<m_H_k*m_P_km*m_H_k.transpose()+m_R_k;
-  Eigen::Matrix3f tmp_inverse;
-//  Eigen::FullPivLU<Eigen::Matrix3f> lu{tmp};//(tmp);
-  tmp_inverse=tmp.inverse();
-//  tmp=tmp.colPivHouseholderQr().solve(Eigen::Matrix3f::Identity());
-//  Eigen::Matrix3f inverseMatrix = tmp.lu()<Eigen::Matrix3f>.solve(Eigen::Matrix3f::Identity());
-//  Eigen::internal::inverse_impl<Eigen::Matrix<float, 3, 3> > GG;
-	m_K_k=m_P_km*m_H_k.transpose()*tmp_inverse;							// Kalman gain
+	m_K_k=m_P_km*m_H_k.transpose()*tmp.inverse();							// Kalman gain
 
 };
+
+

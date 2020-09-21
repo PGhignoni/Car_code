@@ -1,9 +1,12 @@
 #include "MyMPU6050.h"
-
+#include <math.h>
 
 void MyMPU6050::computeAccOffset(bool console, uint16_t delayBefore, uint16_t delayAfter){
 	float x = 0, y = 0, z = 0;
 	int16_t rx, ry, rz;
+	float xx[3000];
+	float yy[3000];
+	float zz[3000];
 
   delay(delayBefore);
 	if(console){
@@ -28,11 +31,31 @@ void MyMPU6050::computeAccOffset(bool console, uint16_t delayBefore, uint16_t de
     x += ((float)rx) / 16384.0;
     y += ((float)ry) / 16384.0;
     z += ((float)rz) / 16384.0;
+
+    // writing the data on the array
+    xx[i]=((float)rx) / 16384.0;
+    yy[i]=((float)ry) / 16384.0;
+    zz[i]=((float)rz) / 16384.0;
   }
   this->accOffsetX = x / 3000;
   this->accOffsetY = y / 3000;
   this->accOffsetZ = z / 3000;
 
+  // computation of the std deviation
+
+  float sumX{0.}, sumY{0.}, sumZ{0.};
+  
+  for(int i{0}; i<3000;i++){	
+	sumX=sumX+(xx[i]-this->accOffsetX)*(xx[i]-this->accOffsetX);
+	sumY=sumY+(yy[i]-this->accOffsetY)*(yy[i]-this->accOffsetY);
+	sumZ=sumZ+(zz[i]-this->accOffsetZ)*(zz[i]-this->accOffsetZ);
+  }
+
+  this->sigmaX=sqrt(sumX/3000);
+  this->sigmaY=sqrt(sumY/3000);
+  this->sigmaZ=sqrt(sumZ/3000);
+
+  // print on the console
   if(console){
     Serial.println();
     Serial.println("Done!");

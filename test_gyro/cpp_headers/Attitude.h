@@ -1,10 +1,7 @@
 #ifndef ATTITUDE_H_INCLUDED
 #define ATTITUDE_H_INCLUDED
 
-#include <stlport.h>
-#include <math.h>
-#include <iostream>
-#include <Eigen30.h>
+#include <eigen3/Eigen/Dense>
 
 class Attitude{
 

@@ -1,8 +1,8 @@
 #ifndef ATTITUDEFILTER_H_INCLUDED
 #define ATTITUDEFILTER_H_INCLUDED
-#include <stlport.h>
+
 #include "Attitude.h"
-#include <Eigen30.h>
+#include <eigen3/Eigen/Dense>
 
 
 Eigen::Matrix3f crossMatrix(Eigen::Vector3f inputVector);
@@ -74,7 +74,7 @@ class MEKF: public AttitudeFilter{
             }
     
 	    // prints the states of the filter
-	    //void displayFilterStates();
+	    void displayFilterStates();
 		    
 	    // KF prediction
 	    void filterPredict(float omega_x, float omega_y, float omega_z);

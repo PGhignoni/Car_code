@@ -1,4 +1,6 @@
 //#include <MPU6050_tockn.h>
+#include <stlport.h>
+//#include <avr_stl.h>
 #include "MyMPU6050.h"
 #include <Wire.h>
 #include "Estimator.h"
