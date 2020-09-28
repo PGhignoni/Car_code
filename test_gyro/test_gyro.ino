@@ -35,7 +35,7 @@ void loop() {
     // obtain the measurement
     mpu6050.update();
 
-    // compute the kalman gain
+ /*   // compute the kalman gain
     attitudeEstimator.filterGainComputation();
     
     // correction
@@ -45,13 +45,19 @@ void loop() {
     Serial.print('\t');
     Serial.print(euler[1]*180/PI);
     Serial.print('\t');
-    Serial.println(euler[2]*180/PI);
+    Serial.println(euler[2]*180/PI);*/
     // prediction
     attitudeEstimator.filterPredict(mpu6050.getGyroX()*PI/180, mpu6050.getGyroY()*PI/180, mpu6050.getGyroZ()*PI/180);
+    attitudeEstimator.getEulerAngles(euler);
 
     timer = millis();
+    Serial.print(euler[0]*180/PI);
+    Serial.print('\t');
+    Serial.print(euler[1]*180/PI);
+    Serial.print('\t');
+    Serial.println(euler[2]*180/PI);
 
-//    Serial.println("Ciao");
+ //   Serial.println("Ciao");
   }
 
 }
